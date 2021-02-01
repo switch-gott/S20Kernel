@@ -28,7 +28,7 @@
 /*
  * Timeout for stopping processes
  */
-unsigned int __read_mostly freeze_timeout_msecs = 20 * MSEC_PER_SEC;
+unsigned int __read_mostly freeze_timeout_msecs = 10 * MSEC_PER_SEC;
 
 static int try_to_freeze_tasks(bool user_only)
 {
@@ -43,7 +43,7 @@ static int try_to_freeze_tasks(bool user_only)
 #ifdef CONFIG_PM_SLEEP
 	char suspend_abort[MAX_SUSPEND_ABORT_LEN];
 #endif
-	const char *sys_state[SYSTEM_END] = {
+	char *sys_state[SYSTEM_END] __maybe_unused = {
 		"BOOTING",
 		"SCHEDULING",
 		"RUNNING",
