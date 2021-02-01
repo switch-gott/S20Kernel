@@ -1060,20 +1060,13 @@ static int s3c2410wdt_panic_handler(struct notifier_block *nb,
 		s3c_wdt[i]->in_panic = 1;
 
 	/* We assumed that num_online_cpus() > 1 status is abnormal */
-	if (dbg_snapshot_get_hardlockup() || num_online_cpus() > 1) {
 
-		dev_emerg(wdt->dev, "%s: watchdog reset is started on panic after 5secs\n", __func__);
-
-		/* set watchdog timer is started and  set by 5 seconds*/
-		s3c2410wdt_set_heartbeat(&wdt->wdt_device, 5);
-		s3c2410wdt_start(&wdt->wdt_device);
-	} else {
 		/*
 		 * kick watchdog to prevent unexpected reset during panic sequence
 		 * and it prevents the hang during panic sequence by watchedog
 		 */
 		s3c2410wdt_keepalive(&wdt->wdt_device);
-	}
+
 
 	/* If not all core hardlocks and panic sequences,
 	 * multistage watchdog should be turned off.
