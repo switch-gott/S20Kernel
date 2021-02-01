@@ -1939,6 +1939,7 @@ static void sec_ts_init_proc(struct sec_ts_data *ts)
 	proc_set_size(entry_cmoffset_all, ts->proc_cmoffset_all_size);
 #endif
 
+#ifdef CONFIG_SEC_DEBUG_TSP_LOG
 	entry_fail_hist_all = proc_create("tsp_fail_hist_all", S_IFREG | S_IRUGO, NULL, &tsp_fail_hist_all_file_ops);
 	if (!entry_fail_hist_all) {
 		input_err(true, &ts->client->dev, "%s: failed to create /proc/tsp_fail_hist_all\n", __func__);
