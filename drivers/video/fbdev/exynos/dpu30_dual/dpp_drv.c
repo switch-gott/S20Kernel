@@ -21,7 +21,7 @@
 #include "decon.h"
 #include "format.h"
 
-int dpp_log_level = 6;
+int dpp_log_level = 0;
 
 struct dpp_device *dpp_drvdata[MAX_DPP_CNT];
 

@@ -47,7 +47,7 @@
 
 #include <soc/samsung/exynos-pd.h>
 
-int dsim_log_level = 6;
+int dsim_log_level = 0;
 
 struct dsim_device *dsim_drvdata[MAX_DSIM_CNT];
 EXPORT_SYMBOL(dsim_drvdata);

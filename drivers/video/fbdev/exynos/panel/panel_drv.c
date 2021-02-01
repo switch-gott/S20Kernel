@@ -148,7 +148,7 @@ static char *panel_regulator_names[PANEL_REGULATOR_MAX] = {
 };
 
 int boot_panel_id;
-int panel_log_level = 6;
+int panel_log_level = 0;
 int panel_cmd_log;
 #ifdef CONFIG_SUPPORT_PANEL_SWAP
 int panel_reprobe(struct panel_device *panel);
