@@ -43,7 +43,7 @@
  * determine the type of error, make appropriate log entries, and
  * return an error code.
  */
- #ifdef CONFIG_ECRYPTFS_FEK_INTEGRITY
+#ifdef CONFIG_ECRYPTFS_FEK_INTEGRITY
 static int eCryptfs_hmac_sha256(u8 *key, u8 ksize, char *plaintext, u8 psize, u8 *output)
 {
 	struct crypto_shash *tfm;
@@ -2354,8 +2354,8 @@ write_tag_3_packet(char *dest, size_t *remaining_bytes,
 	struct crypto_skcipher *tfm;
 	struct skcipher_request *req;
 	int rc = 0;
+	char *iv = NULL;
 #ifdef CONFIG_CRYPTO_FIPS
-    char *iv = NULL;
 	char *hash_key = NULL;
 #endif
 	(*packet_size) = 0;
