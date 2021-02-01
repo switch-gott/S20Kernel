@@ -1938,6 +1938,7 @@ int secdbg_show_busy_task(unsigned int cpu, unsigned long long duration, int cou
 	return is_busy;
 }
 
+#ifdef CONFIG_SEC_DEBUG_WQ_LOCKUP_INFO
 struct task_struct *get_the_busiest_task()
 {
 	struct busy_info *info;
@@ -1952,4 +1953,5 @@ struct task_struct *get_the_busiest_task()
 
 	return info->tsk;
 }
+#endif
 #endif
