@@ -4801,10 +4801,6 @@ CONFIG_SEC_ABC_HUB_BOOTC=y
 # Samsung ABC Hub Booting Time Check eng mode Options
 #
 # CONFIG_SEC_ABC_HUB_BOOTC_ENG is not set
-
-#
-# Samsung LABO Options
-#
 # CONFIG_GOLDFISH is not set
 # CONFIG_CHROME_PLATFORMS is not set
 CONFIG_CLKDEV_LOOKUP=y
