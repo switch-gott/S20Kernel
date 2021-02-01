@@ -777,8 +777,6 @@ static void sec_ts_check_rawdata(struct work_struct *work)
 
 static void dump_tsp_log(void)
 {
-	pr_info("%s: %s %s: start\n", SEC_TS_I2C_NAME, SECLOG, __func__);
-
 #ifdef CONFIG_BATTERY_SAMSUNG
 	if (lpcharge == 1) {
 		pr_err("%s: %s %s: ignored ## lpm charging Mode!!\n", SEC_TS_I2C_NAME, SECLOG, __func__);
@@ -789,7 +787,6 @@ static void dump_tsp_log(void)
 		pr_err("%s: %s %s: ignored ## tsp probe fail!!\n", SEC_TS_I2C_NAME, SECLOG, __func__);
 		return;
 	}
-
 	if (!shutdown_is_on_going_tsp)
 		schedule_delayed_work(p_ghost_check, msecs_to_jiffies(100));
 }
@@ -1900,9 +1897,10 @@ static const struct file_operations tsp_fail_hist_all_file_ops = {
 
 static void sec_ts_init_proc(struct sec_ts_data *ts)
 {
+#ifdef CONFIG_SEC_DEBUG_TSP_LOG
 	struct proc_dir_entry *entry_cmoffset_all;
 	struct proc_dir_entry *entry_fail_hist_all;
-
+#endif
 	ts->proc_cmoffset_size = (ts->tx_count * ts->rx_count * 4 + 100) * 4;	/* cm1 cm2 cm3 miscal*/
 	ts->proc_cmoffset_all_size = ts->proc_cmoffset_size * 2;	/* sdc main */
 
@@ -1932,13 +1930,14 @@ static void sec_ts_init_proc(struct sec_ts_data *ts)
 	ts->fail_hist_main_proc = kzalloc(ts->proc_fail_hist_size, GFP_KERNEL);
 	if (!ts->fail_hist_main_proc)
 		goto err_alloc_fail_hist_main;
-
+#ifdef CONFIG_SEC_DEBUG_TSP_LOG
 	entry_cmoffset_all = proc_create("tsp_cmoffset_all", S_IFREG | S_IRUGO, NULL, &tsp_cmoffset_all_file_ops);
 	if (!entry_cmoffset_all) {
 		input_err(true, &ts->client->dev, "%s: failed to create /proc/tsp_cmoffset_all\n", __func__);
 		goto err_cmoffset_proc_create;
 	}
 	proc_set_size(entry_cmoffset_all, ts->proc_cmoffset_all_size);
+#endif
 
 	entry_fail_hist_all = proc_create("tsp_fail_hist_all", S_IFREG | S_IRUGO, NULL, &tsp_fail_hist_all_file_ops);
 	if (!entry_fail_hist_all) {
@@ -1946,15 +1945,16 @@ static void sec_ts_init_proc(struct sec_ts_data *ts)
 		goto err_fail_hist_proc_create;
 	}
 	proc_set_size(entry_fail_hist_all, ts->proc_fail_hist_all_size);
-
+#endif
 	g_ts = ts;
 	input_info(true, &ts->client->dev, "%s: done\n", __func__);
 	return;
-
+#ifdef CONFIG_SEC_DEBUG_TSP_LOG
 err_fail_hist_proc_create:
 	proc_remove(entry_cmoffset_all);
 err_cmoffset_proc_create:
 	kfree(ts->fail_hist_main_proc);
+#endif
 err_alloc_fail_hist_main:
 	kfree(ts->fail_hist_sub_proc);
 err_alloc_fail_hist_sub:
