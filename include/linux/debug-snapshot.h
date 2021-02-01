@@ -172,7 +172,9 @@ static inline int secdbg_show_busy_task(unsigned int cpu, unsigned long long dur
 {
         return -1;
 }
+#endif
 
+#ifdef CONFIG_SEC_DEBUG_WQ_LOCKUP_INFO
 static struct task_struct *get_the_busiest_task(void)
 {
 	return NULL;
