@@ -1,12 +1,34 @@
 config SECURITY_SELINUX
 	bool "NSA SELinux Support"
-	depends on SECURITY_NETWORK && AUDIT && NET && INET
+	depends on SECURITY_NETWORK && NET && INET
 	select NETWORK_SECMARK
 	default n
 	help
 	  This selects NSA Security-Enhanced Linux (SELinux).
 	  You will also need a policy configuration and a labeled filesystem.
 	  If you are unsure how to answer this question, answer N.
+
+choice
+	prompt "NSA SELinux mode"
+	default ALWAYS_ENFORCE
+	depends on SECURITY_SELINUX
+
+config SECURITY_SELINUX_SWITCH
+	bool "Dynamically switch between permissive and enforcing"
+	help
+	  Allow to switch dynamically between permissive and enforcing modes.
+
+config ALWAYS_ENFORCE
+	bool "Always Enforce mode"
+	help
+	  Pin enforcing mode.
+
+config ALWAYS_PERMIT
+	bool "Always Permit mode"
+	help
+	  Pin permissive mode.
+
+endchoice
 
 config SECURITY_SELINUX_BOOTPARAM
 	bool "NSA SELinux boot parameter"
