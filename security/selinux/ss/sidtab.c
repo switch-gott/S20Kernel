@@ -214,7 +214,7 @@ int sidtab_context_to_sid(struct sidtab *s,
 		}
 		sid = s->next_sid++;
 		if (context->len)
-			pr_info("SELinux:  Context %s is not valid (left unmapped).\n",
+			pr_debug("SELinux:  Context %s is not valid (left unmapped).\n",
 			       context->str);
 		ret = sidtab_insert(s, sid, context);
 		if (ret)
