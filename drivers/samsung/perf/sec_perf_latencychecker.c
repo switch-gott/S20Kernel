@@ -180,8 +180,7 @@ static void sec_perf_latencychecker_save_latency_info(unsigned int next_cpu)
 		lc_info[index].pc = 0;
 	else
 		lc_info[index].pc = (void *)exynos_cs_read_pc(next_cpu);
-	lc_info[index].fn = (void *)secdbg_snapshot_get_hardlatency_info(next_cpu);
-
+	
 	if (lc_info[index].fn) {
 		lc_info[index].type = LATENCY_IRQ;
 	} else {
