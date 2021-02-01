@@ -623,8 +623,8 @@ static pm_callback_t dpm_subsys_suspend_late_cb(struct device *dev,
  */
 static int device_resume_noirq(struct device *dev, pm_message_t state, bool async)
 {
-	pm_callback_t callback;
-	const char *info;
+	pm_callback_t callback = NULL;
+	const char *info = NULL;
 	bool skip_resume;
 	int error = 0;
 
